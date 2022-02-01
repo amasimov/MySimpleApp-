@@ -21,6 +21,8 @@ steps:
   inputs:
     script: |
       cd {repository A}
+      git config --global user.email "you@example.com"
+      git config --global user.name "Your Name"
       git tag -a {tag} -m "{tag description}"
       git push origin --tags
       cd ..
