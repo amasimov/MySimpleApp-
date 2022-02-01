@@ -20,12 +20,6 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      - powershell: |
-          Write-Host "Tagging Build: $env:BuildNumber"
-      
-          git tag $env:BuildNumber
-          git push origin $env:BuildNumber
-        env:
-          BuildNumber: $(Build.BuildNumber)
-        condition: succeeded()
+      git tag -a {tag} -m "{tag description}"
+      git push origin --tags
 
