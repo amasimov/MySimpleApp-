@@ -2,6 +2,14 @@
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
+name: $(SourceBranchName)_$(date:yyyyMMdd)$(rev:.r)
+
+resources:      
+  repositories: 
+  - repository: Shared
+    name: Playground/Shared
+    type: git 
+    ref: master #branch name
 
 trigger:
 - main
@@ -12,14 +20,3 @@ pool:
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
-
-- task: CmdLine@2
-  inputs:
-    script: |
-      cd {repository A}
-      git tag -a {tag} -m "{tag description}"
-      git push origin --tags
-      cd ..
-      cd {repository B}
-      git tag -a {tag} -m "{tag description}"
-      git push origin --tags
