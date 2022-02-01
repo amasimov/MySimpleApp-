@@ -17,11 +17,13 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
-- powershell: |
-    Write-Host "Tagging Build: $env:BuildNumber"
-
-    git tag $env:BuildNumber
-    git push origin $env:BuildNumber
-  env:
-    BuildNumber: $(Build.BuildNumber)
-  condition: succeeded()
+- task: CmdLine@2
+  inputs:
+    script: |
+      cd {repository A}
+      git tag -a {tag} -m "{tag description}"
+      git push origin --tags
+      cd ..
+      cd {repository B}
+      git tag -a {tag} -m "{tag description}"
+      git push origin --tags
